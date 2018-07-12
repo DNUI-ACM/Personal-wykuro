@@ -40,6 +40,7 @@ public:
         {
             return t;
         }
+
     };
     private :
     size_t thesize;
@@ -127,19 +128,20 @@ public:
      }
      reverse_iterator rbegin()
      {
-        return Obj+thesize;
+        return Obj+thesize-1;
      }
-     reverse_iterator crbegin() const noexcept
+     const reverse_iterator rbegin() const noexcept
      {
-        return Obj+thesize;
+        return Obj+thesize-1;
      }
+
      reverse_iterator rend()
      {
-        return Obj;
+        return Obj-1;
      }
-     reverse_iterator crend() const noexcept
+     const reverse_iterator rend() const noexcept
      {
-        return Obj;
+        return Obj-1;
      }
      bool empty() const
      {
@@ -180,7 +182,7 @@ public:
     {
         thesize=0;
     }
-    iterator insert(size_t pos,value_type value )
+    void insert(size_t pos,value_type value )
     {
         thesize++;
         if(thesize==thecapacity)
@@ -191,7 +193,7 @@ public:
             Obj[i+1]=Obj[i];
         Obj[pos]=value;
     }
-    iterator erase(size_t pos)
+    void erase(size_t pos)
     {
            thesize--;
         for(auto i=pos;i<thesize;i++)
@@ -209,10 +211,10 @@ public:
         T* Objs=Obj;
         Obj=other.Obj;
         other.Obj=Objs;
-        int tempsize=thesize;
+        size_t tempsize=thesize;
         thesize=other.thesize;
         other.thesize=tempsize;
-        int tempcapacity=thecapacity;
+        size_t tempcapacity=thecapacity;
         thecapacity=other.thecapacity;
         other.thecapacity=tempcapacity;
     }
